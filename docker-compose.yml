@@ -7,13 +7,13 @@ services:
     command:
     - --loglevel warning
     volumes:
-    - /srv/docker/gitlab/redis:/var/lib/redis:Z
+    - /home/gitlab/redis:/var/lib/redis:Z
 
   postgresql:
     restart: always
     image: sameersbn/postgresql:10
     volumes:
-    - /srv/docker/gitlab/postgresql:/var/lib/postgresql:Z
+    - /home/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
     - DB_USER=gitlab
     - DB_PASS=password
@@ -30,9 +30,9 @@ services:
     - "10080:80"
     - "10022:22"
     volumes:
-    - /srv/docker/gitlab/gitlab:/home/git/data:Z
+    - /home/gitlab/gitlab:/home/git/data:Z
     environment:
-    - DEBUG=false
+    - DEBUG=true
 
     - DB_ADAPTER=postgresql
     - DB_HOST=postgresql
@@ -44,13 +44,13 @@ services:
     - REDIS_HOST=redis
     - REDIS_PORT=6379
 
-    - TZ=Asia/Kolkata
-    - GITLAB_TIMEZONE=Kolkata
+    - TZ=Europe/Paris
+    - GITLAB_TIMEZONE=Paris
 
     - GITLAB_HTTPS=false
     - SSL_SELF_SIGNED=false
 
-    - GITLAB_HOST=localhost
+    - GITLAB_HOST=192.168.33.10
     - GITLAB_PORT=10080
     - GITLAB_SSH_PORT=10022
     - GITLAB_RELATIVE_URL_ROOT=
@@ -58,25 +58,25 @@ services:
     - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
     - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
 
-    - GITLAB_ROOT_PASSWORD=
-    - GITLAB_ROOT_EMAIL=
+    #- GITLAB_ROOT_PASSWORD=
+    #- GITLAB_ROOT_EMAIL=
 
     - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
     - GITLAB_NOTIFY_PUSHER=false
 
-    - GITLAB_EMAIL=notifications@example.com
-    - GITLAB_EMAIL_REPLY_TO=noreply@example.com
-    - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
+    - GITLAB_EMAIL=
+    - GITLAB_EMAIL_REPLY_TO=
+    - GITLAB_INCOMING_EMAIL_ADDRESS=
 
     - GITLAB_BACKUP_SCHEDULE=daily
     - GITLAB_BACKUP_TIME=01:00
 
-    - SMTP_ENABLED=false
-    - SMTP_DOMAIN=www.example.com
-    - SMTP_HOST=smtp.gmail.com
+    - SMTP_ENABLED=true
+    - SMTP_DOMAIN=ovh.net
+    - SMTP_HOST=ssl0@ovh.net
     - SMTP_PORT=587
-    - SMTP_USER=mailer@example.com
-    - SMTP_PASS=password
+    - SMTP_USER=
+    - SMTP_PASS=
     - SMTP_STARTTLS=true
     - SMTP_AUTHENTICATION=login
 
